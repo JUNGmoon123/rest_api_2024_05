@@ -10,7 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import com.koreait.rest_2024_05.boundedContext.member.entity.Member;
+import com.koreait.rest_2024_05.boundedContext.member.repository.MemberRepository;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -26,6 +27,7 @@ public class ApiSecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers("/api/*/member/login").permitAll() // 로그인은 누구나 가능
+                                .requestMatchers("/api/*/articles").permitAll() // 글 보기는 누구나 가능
                                 .anyRequest().authenticated() // 나머지는 인증된 사용자만 가능
                 )
                 .cors().disable() // 타 도메인에서 API 호출 가능
